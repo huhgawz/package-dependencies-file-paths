@@ -22,14 +22,14 @@ $ npm install --save package-dependencies-file-paths
 
 ```json
 {
-  ...
+  //...
   "dependencies": {
-    ...
+    //...
     "globby": "~6.1.0",
     "lodash": "~4.17.2",
-    ...
+    //...
   },
-  ...
+  //...
 }
 ```
 
@@ -103,6 +103,7 @@ Type: `Object`
 Type: `String[]`
 
 Possible Values: `dependencies`, `devDependencies`, `peerDependencies`
+
 Default: `["dependencies"]`
 
 ##### sort
@@ -115,7 +116,7 @@ Default: `false`
 
 Type: `String[]`
 
-Default: ``
+Default:
 
 ```json
 [
