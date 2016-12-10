@@ -20,9 +20,9 @@ $ npm install --save package-dependencies-file-paths
 
 `package.json`
 
-```json
+```javascript
 {
-  /* ... */
+  // ...
   "dependencies": {
     //...
     "globby": "~6.1.0",
