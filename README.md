@@ -1,4 +1,7 @@
-# package-dependencies-file-paths [![Build Status](https://travis-ci.org/huhgawz/package-dependencies-file-paths.svg?branch=master)](https://travis-ci.org/huhgawz/package-dependencies-file-paths)
+# package-dependencies-file-paths
+
+[![Build Status](https://travis-ci.org/huhgawz/package-dependencies-file-paths.svg?branch=master)](https://travis-ci.org/huhgawz/package-dependencies-file-paths)
+[![Dependency Status](https://img.shields.io/david/huhgawz/package-dependencies-file-path.svg?style=flat-square)](https://david-dm.org/huhgawz/package-dependencies-file-path)
 
 > Resolve dependencies file paths in a `package.json`.
 
