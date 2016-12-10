@@ -131,6 +131,8 @@ Default:
 ]
 ```
 
+See `node-glob` [glob-primer](https://github.com/isaacs/node-glob#glob-primer)
+
 ##### ignore
 
 Type: `String[]`
@@ -145,6 +147,7 @@ Default:
     "**/{.,}{bower,component,eslint,eslintrc,jscs,travis}.{json,yml}"
 ]
 ```
+See `node-glob` [glob-primer](https://github.com/isaacs/node-glob#glob-primer)
 
 #### callback
 
