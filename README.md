@@ -18,9 +18,21 @@ $ npm install --save package-dependencies-file-paths
 
 ## Usage
 
-`package.json`
+### Project Structure
 
-```javascript
+```
+├── node_modules
+│   ├─ ...
+│   ├─ globby
+│   ├─ lodash
+│   └─ ...
+├── deploy.js
+└── package.json
+```
+
+### package.json
+
+```js
 {
   //...
   "dependencies": {
@@ -33,14 +45,7 @@ $ npm install --save package-dependencies-file-paths
 }
 ```
 
-```
-├── node_modules
-│   ├─ ...
-│   ├─ globby
-│   ├─ lodash
-│   └─ ...
-└── package.json
-```
+### deploy.js
 
 ```js
 var packageDependenciesFilePaths = require('package-dependencies-file-paths');
@@ -79,6 +84,8 @@ packageDependenciesFilePaths(pkgJson, options, function(err, filePaths) {
       ...
     ]
   */
+  
+  // Do something with filePaths such as zip them and deploy them to the cloud
 });
 ```
 
