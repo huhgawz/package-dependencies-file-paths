@@ -31,7 +31,7 @@ packageDependenciesFilePaths(pkgJson, options, function(err, filePaths) {
 
 ### packageDependenciesFilePaths(packageJson, [options], [callback])
 
-Returns a Promise for an array of matching paths.
+Resolve dependencies file paths in `packageJson`.
 
 #### packageJson
 
