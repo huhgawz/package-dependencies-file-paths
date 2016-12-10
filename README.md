@@ -22,7 +22,7 @@ $ npm install --save package-dependencies-file-paths
 
 ```json
 {
-  //...
+  /* ... */
   "dependencies": {
     //...
     "globby": "~6.1.0",
