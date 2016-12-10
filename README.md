@@ -3,6 +3,8 @@
 [![npm package](https://nodei.co/npm/package-dependencies-file-paths.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/package-dependencies-file-paths/)
 
 [![Build Status](https://travis-ci.org/huhgawz/package-dependencies-file-paths.svg?branch=master)](https://travis-ci.org/huhgawz/package-dependencies-file-paths)
+[![NPM Version](http://img.shields.io/npm/v/package-dependencies-file-paths.svg?style=flat)](https://www.npmjs.org/package/package-dependencies-file-paths)
+[![NPM Downloads](https://img.shields.io/npm/dm/package-dependencies-file-paths.svg?style=flat)](https://www.npmjs.org/package/package-dependencies-file-paths)
 [![Dependency Status](https://img.shields.io/david/huhgawz/package-dependencies-file-paths.svg?style=flat-square)](https://david-dm.org/huhgawz/package-dependencies-file-paths)
 [![Known Vulnerabilities](https://snyk.io/test/npm/package-dependencies-file-paths/badge.svg?style=flat-square)](https://snyk.io/test/npm/package-dependencies-file-paths)
 
@@ -48,6 +50,10 @@ Type: `Object`
 #### options
 
 Type: `Object`
+
+#### callback
+
+Type: `Function`
 
 ## License
 
