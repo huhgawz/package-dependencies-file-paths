@@ -85,7 +85,7 @@ packageDependenciesFilePaths(pkgJson, options, function(err, filePaths) {
     ]
   */
   
-  // Do something with filePaths such as zip them and deploy them to the cloud
+  // Do something with filePaths such as zip them and deploy them to the cloud ☁️
 });
 ```
 
