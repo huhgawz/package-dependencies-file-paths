@@ -8,10 +8,15 @@ var DEFAULT_INCLUDE = [
     '**/*.{js,json,yml}'
 ];
 var DEFAULT_IGNORE = [
-    '**/{doc,docs,example,examples,spec,test,tests}/**/*.{js,json,yml}',
+    '**/{doc,docs,example,examples,fixture,fixtures,spec,test,tests}/**/*.{js,json,yml}',
     '**/*.{spec,test}.js',
+    '**/{bower,component}.json',
     '**/{gulpfile,Gruntfile}.js',
-    '**/{.,}{bower,component,eslint,eslintrc,jscs,travis}.{json,yml}'
+    '**/{.,}{eslint,eslintrc,jscs,jscsrc}.json',
+    '**/{.,}travis.yml'
+];
+var DEFAULT_LOOKUPS = [
+    'dependencies'
 ];
 var NOOP = function() {};
 var PATH_SEPARATOR = '/';
@@ -46,7 +51,7 @@ module.exports = function(packageJson, options, callback) {
 
     var lookups = options.lookups;
     if(!lookups || _.isEmpty(lookups)) {
-        lookups = ['dependencies']
+        lookups = DEFAULT_LOOKUPS;
     }
     resolveTree.manifest(packageJson, {lookups: lookups}, function(err, pkgsTree) {
         if(err) return callback(err);
