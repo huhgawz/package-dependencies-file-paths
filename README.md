@@ -18,7 +18,7 @@ $ npm install --save package-dependencies-file-paths
 
 ## Usage
 
-### Project Structure
+### File Structure
 
 ```
 ├── node_modules
@@ -26,7 +26,7 @@ $ npm install --save package-dependencies-file-paths
 │   ├─ globby
 │   ├─ lodash
 │   └─ ...
-├── deploy.js
+├── example.js
 └── package.json
 ```
 
@@ -45,7 +45,7 @@ $ npm install --save package-dependencies-file-paths
 }
 ```
 
-### deploy.js
+### example.js
 
 ```js
 var packageDependenciesFilePaths = require('package-dependencies-file-paths');
@@ -60,33 +60,34 @@ var options = {
 var pkgJson = require('./package.json');
 packageDependenciesFilePaths(pkgJson, options, function(err, filePaths) {
   if(err) return console.error(err);
-  console.log('filePaths:', JSON.stringify(filePaths, null, 4));
-  /*
-    Line above should log something like this:
-    filePaths: [
-      ...
-      "node_modules/glob/common.js",
-      "node_modules/glob/glob.js",
-      "node_modules/glob/package.json",
-      ...
-      "node_modules/globby/index.js",
-      "node_modules/globby/package.json",
-      ...
-      "node_modules/jade/node_modules/commander/lib/commander.js",
-      "node_modules/jade/node_modules/commander/index.js",
-      "node_modules/jade/node_modules/commander/package.json",
-      ...
-      "node_modules/lodash/fp/__.js",
-      "node_modules/lodash/fp/_baseConvert.js",
-      ...
-      "node_modules/pinky_promise/index.js",
-      "node_modules/pinky_promise/package.json",
-      ...
-    ]
-  */
-  
-  // Do something with filePaths such as zip them and deploy them to the cloud ☁️
+  console.log(JSON.stringify(filePaths, null, 4));
+  // Do something with file paths such as zip them and deploy them to the ☁️
 });
+```
+
+Output from code above should look like this:
+
+```js
+[
+  //...
+  "node_modules/glob/common.js",
+  "node_modules/glob/glob.js",
+  "node_modules/glob/package.json",
+  //...
+  "node_modules/globby/index.js",
+  "node_modules/globby/package.json",
+  //...
+  "node_modules/jade/node_modules/commander/lib/commander.js",
+  "node_modules/jade/node_modules/commander/index.js",
+  "node_modules/jade/node_modules/commander/package.json",
+  //...
+  "node_modules/lodash/fp/__.js",
+  "node_modules/lodash/fp/_baseConvert.js",
+  //...
+  "node_modules/pinky_promise/index.js",
+  "node_modules/pinky_promise/package.json",
+  //...
+]
 ```
 
 ## API
@@ -125,7 +126,7 @@ Type: `String[]`
 
 Default:
 
-```json
+```js
 [
   "**/*.{js,json,yml}"
 ]
@@ -139,12 +140,14 @@ Type: `String[]`
 
 Default:
 
-```json
+```js
  [
-    "**/{doc,docs,example,examples,spec,test,tests}/**/*.{js,json,yml}",
+    "**/{doc,docs,example,examples,fixture,fixtures,spec,test,tests}/**/*.{js,json,yml}",
     "**/*.{spec,test}.js",
+    "**/{bower,component}.json",
     "**/{gulpfile,Gruntfile}.js",
-    "**/{.,}{bower,component,eslint,eslintrc,jscs,travis}.{json,yml}"
+    "**/{.,}{eslint,eslintrc,jscs,jscsrc}.json",
+    "**/{.,}travis.yml"
 ]
 ```
 See `node-glob` [glob-primer](https://github.com/isaacs/node-glob#glob-primer)
@@ -152,6 +155,14 @@ See `node-glob` [glob-primer](https://github.com/isaacs/node-glob#glob-primer)
 #### callback
 
 Type: `Function`
+
+##### err
+
+Type: `Error`
+
+##### filePaths
+
+Type: `String[]`
 
 ## License
 
