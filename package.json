@@ -1,6 +1,6 @@
 {
   "name": "package-dependencies-file-paths",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Resolve dependencies file paths in a package.json",
   "author": {
     "name": "Huhgawz",

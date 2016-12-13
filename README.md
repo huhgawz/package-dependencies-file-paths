@@ -49,11 +49,22 @@ $ npm install --save package-dependencies-file-paths
 
 ```js
 var packageDependenciesFilePaths = require('package-dependencies-file-paths');
+var path = require('path');
 
 var cwd = process.cwd();
 var options = {
+  ignore: [
+    '**/{doc,docs,example,examples,fixture,fixtures,spec,test,tests}/**',
+    '**/{.,}{eslintrc,jscsrc}{.json,}',
+    '**/.{editorconfig,gitattributes,gitignore,npmignore}',
+    '**/.travis.yml',
+    '**/{bower,component}.json',
+    '**/{gulpfile,Gruntfile}.js',
+    '**/*.{spec,test}.js',
+    '**/*.{markdown,md}'
+  ],
   transformPath: function(folderPath) {
-    return folderPath.replace(cwd + '/', '');
+    return folderPath.replace(cwd + path.sep, '');
   },
   sort: true
 };
@@ -77,12 +88,9 @@ Output from code above should look like this:
   "node_modules/globby/index.js",
   "node_modules/globby/package.json",
   //...
-  "node_modules/jade/node_modules/commander/lib/commander.js",
-  "node_modules/jade/node_modules/commander/index.js",
-  "node_modules/jade/node_modules/commander/package.json",
-  //...
   "node_modules/lodash/fp/__.js",
-  "node_modules/lodash/fp/_baseConvert.js",
+  //...
+  "node_modules/lodash/package.json",
   //...
   "node_modules/pinky_promise/index.js",
   "node_modules/pinky_promise/package.json",
@@ -106,7 +114,15 @@ Type: `Object`
 
 Type: `Object`
 
-##### lookups
+##### ignore
+
+Type: `String[]`
+
+Default: `[]`
+
+See `node-glob` [glob-primer](https://github.com/isaacs/node-glob#glob-primer)
+
+##### dependenciesSets
 
 Type: `String[]`
 
@@ -119,38 +135,6 @@ Default: `["dependencies"]`
 Type: `Boolean`
 
 Default: `false`
-
-##### include
-
-Type: `String[]`
-
-Default:
-
-```js
-[
-  "**/*.{js,json,yml}"
-]
-```
-
-See `node-glob` [glob-primer](https://github.com/isaacs/node-glob#glob-primer)
-
-##### ignore
-
-Type: `String[]`
-
-Default:
-
-```js
- [
-    "**/{doc,docs,example,examples,fixture,fixtures,spec,test,tests}/**/*.{js,json,yml}",
-    "**/*.{spec,test}.js",
-    "**/{bower,component}.json",
-    "**/{gulpfile,Gruntfile}.js",
-    "**/{.,}{eslint,eslintrc,jscs,jscsrc}.json",
-    "**/{.,}travis.yml"
-]
-```
-See `node-glob` [glob-primer](https://github.com/isaacs/node-glob#glob-primer)
 
 #### callback
 

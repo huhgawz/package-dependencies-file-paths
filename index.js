@@ -2,34 +2,22 @@
 
 var _ = require('lodash');
 var globby = require('globby');
+var path = require('path');
 var resolveTree = require('resolve-tree');
 
-var DEFAULT_INCLUDE = [
-    '**/*.{js,json,yml}'
-];
-var DEFAULT_IGNORE = [
-    '**/{doc,docs,example,examples,fixture,fixtures,spec,test,tests}/**/*.{js,json,yml}',
-    '**/*.{spec,test}.js',
-    '**/{bower,component}.json',
-    '**/{gulpfile,Gruntfile}.js',
-    '**/{.,}{eslint,eslintrc,jscs,jscsrc}.json',
-    '**/{.,}travis.yml'
-];
-var DEFAULT_LOOKUPS = [
+var DEFAULT_DEPENDENCIES_SETS = [
     'dependencies'
 ];
 var NOOP = function() {};
-var PATH_SEPARATOR = '/';
 
 /**
  * Resolves dependencies file paths in a package.json.
  * @param {Object} packageJson
  * @param {Object} [options]
- * @param {String[]} [options.lookups]
+ * @param {String[]} [options.ignore]
+ * @param {String[]} [options.dependenciesSets]
  * @param {Function} [options.transformPath]
  * @param {Boolean=false} [options.sort]
- * @param {String[]} [options.include]
- * @param {String[]} [options.ignore]
  * @param {Function} [callback]
  */
 module.exports = function(packageJson, options, callback) {
@@ -44,48 +32,32 @@ module.exports = function(packageJson, options, callback) {
         callback = NOOP;
     }
 
-    var transformPathFunction;
-    if(_.isFunction(options.transformPath)) {
-        transformPathFunction = options.transformPath;
+    var dependenciesSets = options.dependenciesSets;
+    if(!dependenciesSets || _.isEmpty(dependenciesSets)) {
+        dependenciesSets = DEFAULT_DEPENDENCIES_SETS;
     }
-
-    var lookups = options.lookups;
-    if(!lookups || _.isEmpty(lookups)) {
-        lookups = DEFAULT_LOOKUPS;
-    }
-    resolveTree.manifest(packageJson, {lookups: lookups}, function(err, pkgsTree) {
+    resolveTree.manifest(packageJson, {lookups: dependenciesSets}, function(err, pkgsTree) {
         if(err) return callback(err);
 
-        var pkgsFolderPaths = _.uniq(_.map(resolveTree.flatten(pkgsTree), function(pkg) {
-            var pkgFolderPath = pkg.root;
-            if(!transformPathFunction) return pkgFolderPath;
-            return transformPathFunction(pkgFolderPath);
+        var globPatterns = _.uniq(_.map(resolveTree.flatten(pkgsTree), function(pkg) {
+            return path.join(pkg.root, '**/*');
         }));
-        if(options.sort) {
-            pkgsFolderPaths = _.sortBy(pkgsFolderPaths);
-        }
-
-        var include = options.include;
-        if(!include || _.isEmpty(include)) {
-            include = DEFAULT_INCLUDE;
-        }
-
-        var ignore = options.ignore;
-        if(!ignore || _.isEmpty(ignore)) {
-            ignore = DEFAULT_IGNORE;
-        }
-
-        var globPatterns = [];
-        _.forEach(pkgsFolderPaths, function(pkgPath) {
-            _.forEach(include, function(includePattern) {
-                globPatterns.push(pkgPath + PATH_SEPARATOR + includePattern);
-            });
-            _.forEach(ignore, function(ignorePattern) {
-                globPatterns.push('!' + pkgPath + PATH_SEPARATOR + ignorePattern);
-            });
+        _.forEach(options.ignore, function(ignorePattern) {
+            globPatterns.push('!' + ignorePattern);
         });
-        globby(globPatterns)
+        globby(globPatterns, {dot: true, nodir: true})
             .then(function(filePaths) {
+                var transformPathFunction = options.transformPath;
+                if(_.isFunction(transformPathFunction)) {
+                    filePaths = _.map(filePaths, function(filePath) {
+                        return transformPathFunction(filePath);
+                    });
+                }
+
+                if(options.sort) {
+                    filePaths = _.sortBy(filePaths);
+                }
+
                 callback(null, filePaths);
             })
             .catch(function(err) {
