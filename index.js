@@ -14,6 +14,7 @@ var NOOP = function() {};
  * Resolves dependencies file paths in a package.json.
  * @param {Object} packageJson
  * @param {Object} [options]
+ * @param {Boolean=false} [options.includeDotFiles]
  * @param {String[]} [options.ignore]
  * @param {String[]} [options.dependenciesSets]
  * @param {Function} [options.transformPath]
@@ -45,7 +46,8 @@ module.exports = function(packageJson, options, callback) {
         _.forEach(options.ignore, function(ignorePattern) {
             globPatterns.push('!' + ignorePattern);
         });
-        globby(globPatterns, {dot: true, nodir: true})
+        var includeDotFiles = options.includeDotFiles || false;
+        globby(globPatterns, {dot: includeDotFiles, nodir: true})
             .then(function(filePaths) {
                 var transformPathFunction = options.transformPath;
                 if(_.isFunction(transformPathFunction)) {

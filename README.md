@@ -55,23 +55,25 @@ var cwd = process.cwd();
 var options = {
   ignore: [
     '**/{doc,docs,example,examples,fixture,fixtures,spec,test,tests}/**',
-    '**/{.,}{eslintrc,jscsrc}{.json,}',
-    '**/.{editorconfig,gitattributes,gitignore,npmignore}',
+    '**/{.,}{eslint,jscs,jshint}rc{.json,}',
+    '**/.{editorconfig,gitattributes,gitmodules}',
+    '**/.{eslint,git,npm}ignore',
     '**/.travis.yml',
     '**/{bower,component}.json',
     '**/{gulpfile,Gruntfile}.js',
+    '**/{LICENCE,LICENSE,License,license}',
     '**/*.{spec,test}.js',
-    '**/*.{markdown,md}'
+    '**/*.{markdown,md,ts}'
   ],
-  transformPath: function(folderPath) {
-    return folderPath.replace(cwd + path.sep, '');
+  transformPath: function(filePath) {
+    return filePath.replace(cwd + path.sep, '');
   },
   sort: true
 };
 var pkgJson = require('./package.json');
 packageDependenciesFilePaths(pkgJson, options, function(err, filePaths) {
   if(err) return console.error(err);
-  console.log(JSON.stringify(filePaths, null, 4));
+  console.log(JSON.stringify(filePaths, null, 2));
   // Do something with file paths such as zip them and deploy them to the ☁️
 });
 ```
@@ -110,11 +112,17 @@ Type: `Object`
 
 `package.json` Object.
 
-#### options
+#### \[options]
 
 Type: `Object`
 
-##### ignore
+##### \[includeDotFiles]
+
+Type: `Boolean`
+
+Default: `false`
+
+##### \[ignore]
 
 Type: `String[]`
 
@@ -122,7 +130,7 @@ Default: `[]`
 
 See `node-glob` [glob-primer](https://github.com/isaacs/node-glob#glob-primer)
 
-##### dependenciesSets
+##### \[dependenciesSets]
 
 Type: `String[]`
 
@@ -130,13 +138,17 @@ Possible Values: `dependencies`, `devDependencies`, `peerDependencies`
 
 Default: `["dependencies"]`
 
-##### sort
+##### \[transformPath]
+
+Type: `Function`
+
+##### \[sort]
 
 Type: `Boolean`
 
 Default: `false`
 
-#### callback
+#### \[callback]
 
 Type: `Function`
 
