@@ -53,6 +53,7 @@ var path = require('path');
 
 var cwd = process.cwd();
 var options = {
+  includeDotFiles: true,
   ignore: [
     '**/{doc,docs,example,examples,fixture,fixtures,spec,test,tests}/**',
     '**/{.,}{eslint,jscs,jshint}rc{.json,}',
