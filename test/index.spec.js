@@ -46,18 +46,18 @@ describe('package-dependencies-file-paths', function() {
         packageDependenciesFilePaths(pkgJson, options, function(err, filePaths) {
             expect(err).to.not.exists;
 
-            // Validate file paths Array is not empty
+            // Validate file paths Array
             expect(filePaths).to.be.instanceof(Array);
             expect(filePaths).to.not.be.empty;
 
             _.forEach(filePaths, function(filePath) {
                 // Validate documentation, example, fixtures, spec and test folders have been ignored
-                expect(filePath).to.not.match(/.+\/(doc|example|fixture|spec|test)s?\/.+\.(js|json|yml)$/i);
+                expect(filePath).to.not.match(/.+\/(doc|example|fixture|spec|test)s?\/.+/i);
 
                 // Validate dot files have been ignored
-                expect(filePath).to.not.match(/\.(editorconfig|gitattributes|gitmodules)/i);
-                expect(filePath).to.not.match(/\.(eslint|git|npm)ignore/i);
-                expect(filePath).to.not.match(/\.?(eslint|jscs|jshint)rc\.json$/i);
+                expect(filePath).to.not.match(/\.(editorconfig|gitattributes|gitmodules)$/i);
+                expect(filePath).to.not.match(/\.(eslint|git|npm)ignore$/i);
+                expect(filePath).to.not.match(/\.?(eslint|jscs|jshint)rc(\.json)?$/i);
                 expect(filePath).to.not.match(/\.travis\.yml$/i);
 
                 // Validate Markdown and Typescript files have been ignored
@@ -68,7 +68,7 @@ describe('package-dependencies-file-paths', function() {
 
                 // Validate bower.json, component.json, Gruntfile.js and gulpfile.json files have been ignored
                 expect(filePath).to.not.match(/(bower|component)\.json$/i);
-                expect(filePath).to.not.match(/(Gruntfile|gulpfile)\.js$/i);
+                expect(filePath).to.not.match(/(gruntfile|gulpfile)\.js$/i);
 
                 // Validate license files have been ignored
                 expect(filePath).to.not.match(/licen(c|s)e$/i);
@@ -88,15 +88,15 @@ describe('package-dependencies-file-paths', function() {
         packageDependenciesFilePaths(pkgJson, options, function(err, filePaths) {
             expect(err).to.not.exists;
 
-            // Validate file paths Array is not empty
+            // Validate file paths Array
             expect(filePaths).to.be.instanceof(Array);
             expect(filePaths).to.not.be.empty;
 
             _.forEach(filePaths, function(filePath) {
                 // Validate dot files have been ignored
-                expect(filePath).to.not.match(/\.(editorconfig|gitattributes|gitmodules)/i);
-                expect(filePath).to.not.match(/\.(eslint|git|npm)ignore/i);
-                expect(filePath).to.not.match(/\.?(eslint|jscs|jshint)rc\.json$/i);
+                expect(filePath).to.not.match(/\.(editorconfig|gitattributes|gitmodules)$/i);
+                expect(filePath).to.not.match(/\.(eslint|git|npm)ignore$/i);
+                expect(filePath).to.not.match(/\.?(eslint|jscs|jshint)rc(\.json)?$/i);
                 expect(filePath).to.not.match(/\.travis\.yml$/i);
             });
 
