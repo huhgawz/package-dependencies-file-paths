@@ -53,13 +53,9 @@ var path = require('path');
 
 var cwd = process.cwd();
 var options = {
-  includeDotFiles: true,
+  includeDotFiles: false,
   ignore: [
     '**/{doc,docs,example,examples,fixture,fixtures,spec,test,tests}/**',
-    '**/{.,}{eslint,jscs,jshint}rc{.json,}',
-    '**/.{editorconfig,gitattributes,gitmodules}',
-    '**/.{eslint,git,npm}ignore',
-    '**/.travis.yml',
     '**/{bower,component}.json',
     '**/{gulpfile,Gruntfile}.js',
     '**/{LICENCE,LICENSE,License,license}',
@@ -73,9 +69,9 @@ var options = {
 };
 var pkgJson = require('./package.json');
 packageDependenciesFilePaths(pkgJson, options, function(err, filePaths) {
-  if(err) return console.error(err);
+  if(err) return console.error(err.message);
   console.log(JSON.stringify(filePaths, null, 2));
-  // Do something with file paths such as zip them and deploy them to the ☁️
+  // Do something with JavaScript and JSON files such as zip them and deploy them to the ☁️
 });
 ```
 
