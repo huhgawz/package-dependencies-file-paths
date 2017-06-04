@@ -2,4 +2,6 @@
 .gitattributes
 .gitignore
 .npmignore
+.travis.yml
+PUBLISH.md
 test
