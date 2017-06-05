@@ -1,6 +1,6 @@
 {
     "name": "package-dependencies-file-paths",
-    "version": "1.1.4",
+    "version": "2.0.0",
     "description": "Resolve dependencies file paths in a package.json",
     "author": {
         "name": "Huhgawz",
@@ -32,19 +32,19 @@
     },
     "license": "MIT",
     "engines": {
-        "node": ">=0.12.0"
+        "node": ">=4.0.0"
     },
     "dependencies": {
         "globby": "~6.1.0",
-        "lodash": "~4.17.2",
         "resolve-tree": "~0.1.13"
     },
     "devDependencies": {
         "chai": "~3.5.0",
-        "mocha": "~3.2.0"
+        "mocha": "~3.4.2"
     },
     "main": "index.js",
     "scripts": {
+        "prepublish": "npm test",
         "test": "mocha --ui bdd test/**/*.spec.js"
     }
 }

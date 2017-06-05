@@ -1,11 +1,10 @@
 'use strict';
 
-var _ = require('lodash');
 var chai = require('chai');
 var packageDependenciesFilePaths = require('../');
 var path = require('path');
 
-var MOCHA_TIMEOUT = 50000;
+var MOCHA_TIMEOUT = 5000;
 
 var cwd = process.cwd();
 var expect = chai.expect;
@@ -15,7 +14,7 @@ describe('package-dependencies-file-paths', function() {
     this.timeout(MOCHA_TIMEOUT);
 
     function validateDependenciesPaths(filePaths, pkgJson) {
-        _.forEach(_.keys(pkgJson.dependencies), function(dependency) {
+        Object.keys(pkgJson.dependencies).forEach(function(dependency) {
             var dependencyPackageJsonFilePath = path.join('node_modules', dependency, 'package.json');
             expect(filePaths).to.include(dependencyPackageJsonFilePath);
         });
@@ -50,7 +49,7 @@ describe('package-dependencies-file-paths', function() {
             expect(filePaths).to.be.instanceof(Array);
             expect(filePaths).to.not.be.empty;
 
-            _.forEach(filePaths, function(filePath) {
+            filePaths.forEach(function(filePath) {
                 // Validate documentation, example, fixtures, spec and test folders have been ignored
                 expect(filePath).to.not.match(/.+\/(doc|example|fixture|spec|test)s?\/.+/i);
 
@@ -92,7 +91,7 @@ describe('package-dependencies-file-paths', function() {
             expect(filePaths).to.be.instanceof(Array);
             expect(filePaths).to.not.be.empty;
 
-            _.forEach(filePaths, function(filePath) {
+            filePaths.forEach(function(filePath) {
                 // Validate dot files have been ignored
                 expect(filePath).to.not.match(/\.(editorconfig|gitattributes|gitmodules)$/i);
                 expect(filePath).to.not.match(/\.(eslint|git|npm)ignore$/i);
