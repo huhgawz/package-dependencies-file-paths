@@ -39,7 +39,7 @@
         "resolve-tree": "~0.1.13"
     },
     "devDependencies": {
-        "chai": "~3.5.0",
+        "chai": "~4.1.2",
         "mocha": "~3.4.2"
     },
     "main": "index.js",
