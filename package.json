@@ -35,7 +35,7 @@
         "node": ">=4.0.0"
     },
     "dependencies": {
-        "globby": "~6.1.0",
+        "globby": "~11.0.1",
         "resolve-tree": "~0.1.13"
     },
     "devDependencies": {
